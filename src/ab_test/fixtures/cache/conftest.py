@@ -5,10 +5,10 @@ from unittest.mock import patch
 
 import pytest
 import pytest_asyncio
-from obo_core.cache.caches import Cache
-from obo_core.cache.caches.base import BaseSessionAsync, BaseSessionSync
-from obo_core.cache.session_context import cache_session_async_cm, cache_session_sync_cm
-from obo_core.dependency import Load
+from ab_core.cache.caches import Cache
+from ab_core.cache.caches.base import BaseSessionAsync, BaseSessionSync
+from ab_core.cache.session_context import cache_session_async_cm, cache_session_sync_cm
+from ab_core.dependency import Load
 
 
 @pytest.fixture

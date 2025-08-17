@@ -16,25 +16,25 @@ dev = [
 [project]
 authors = [{email = "53892067+mattcoulter7@users.noreply.github.com", name = "Matthew Coulter"}]
 dependencies = [
-  "obo-cache",
-  "obo-database[sqlite-async]",
+  "ab-cache",
+  "ab-database[sqlite-async]",
   "pytest-asyncio>=1.0.0,<2",
   "pytest>=8.4.0,<9"
 ]
 description = ""
-name = "obo-test-fixtures"
+name = "ab-test-fixtures"
 readme = "README.md"
 requires-python = ">=3.12, <4"
 version = "0.1.0"
 
 [tool.hatch.build.targets.sdist]
-include = ["src/obo_test"]
+include = ["src/ab_test"]
 
 [tool.hatch.build.targets.wheel]
-include = ["src/obo_test"]
+include = ["src/ab_test"]
 
 [tool.hatch.build.targets.wheel.sources]
-"src/obo_test" = "obo_test"
+"src/ab_test" = "ab_test"
 
 [tool.pytest.ini_options]
 asyncio_default_fixture_loop_scope = "session"
@@ -66,9 +66,3 @@ select = [
   "UP", # pyupgrade
   "W" # pycodestyle warnings
 ]
-
-[tool.uv]
-
-[tool.uv.sources]
-obo-cache = {editable = true, path = "../../obo_core/obo-cache"}
-obo-database = {editable = true, path = "../../obo_core/obo-database"}

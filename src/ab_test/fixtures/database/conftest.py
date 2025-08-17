@@ -5,10 +5,10 @@ from unittest.mock import patch
 
 import pytest
 import pytest_asyncio
-from obo_core.database.databases import Database
-from obo_core.database.databases.sqlalchemy import AsyncSession, Session
-from obo_core.database.session_context import db_session_async_cm, db_session_sync_cm
-from obo_core.dependency import Load
+from ab_core.database.databases import Database
+from ab_core.database.databases.sqlalchemy import AsyncSession, Session
+from ab_core.database.session_context import db_session_async_cm, db_session_sync_cm
+from ab_core.dependency import Load
 
 
 @pytest.fixture

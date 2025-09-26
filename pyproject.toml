@@ -27,6 +27,10 @@ readme = "README.md"
 requires-python = ">=3.12, <4"
 version = "0.1.0"
 
+[tool.uv.sources]
+ab-cache  = { git = "https://@github.com/auth-broker/package-cache", rev = "0.1.0" }
+ab-database  = { git = "https://@github.com/auth-broker/package-database", rev = "0.1.0" }
+
 [tool.hatch.build.targets.sdist]
 include = ["src/ab_test"]
 

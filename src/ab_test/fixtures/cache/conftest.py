@@ -1,6 +1,7 @@
+"""Fixtures for cache testing."""
+
 import os
-from pathlib import Path
-from typing import AsyncGenerator, Generator
+from collections.abc import AsyncGenerator, Generator
 from unittest.mock import patch
 
 import pytest
@@ -13,6 +14,7 @@ from ab_core.dependency import Load
 
 @pytest.fixture
 def tmp_cache_sync() -> Generator[Cache, None, None]:
+    """Yield a temporary in-memory cache instance for testing."""
     with patch.dict(
         os.environ,
         {
@@ -25,7 +27,8 @@ def tmp_cache_sync() -> Generator[Cache, None, None]:
 
 
 @pytest_asyncio.fixture
-async def tmp_cache_async(tmp_path: Path) -> AsyncGenerator[Cache, None]:
+async def tmp_cache_async() -> AsyncGenerator[Cache, None]:
+    """Yield a temporary in-memory cache instance for testing."""
     with patch.dict(
         os.environ,
         {
@@ -39,6 +42,7 @@ async def tmp_cache_async(tmp_path: Path) -> AsyncGenerator[Cache, None]:
 
 @pytest.fixture
 def tmp_cache_sync_session(tmp_cache_sync: Cache) -> Generator[BaseSessionAsync, None, None]:
+    """Yield a synchronous cache session for testing."""
     with cache_session_sync_cm(tmp_cache_sync) as session:
         yield session
 
@@ -47,5 +51,6 @@ def tmp_cache_sync_session(tmp_cache_sync: Cache) -> Generator[BaseSessionAsync,
 async def tmp_cache_async_session(
     tmp_cache_async: Cache,
 ) -> AsyncGenerator[BaseSessionSync, None]:
+    """Yield an asynchronous cache session for testing."""
     async with cache_session_async_cm(tmp_cache_async) as session:
         yield session

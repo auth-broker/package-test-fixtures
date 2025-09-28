@@ -1,18 +1,20 @@
+"""Fixtures for database tests."""
+
 import os
+from collections.abc import AsyncGenerator, Generator
 from pathlib import Path
-from typing import AsyncGenerator, Generator
 from unittest.mock import patch
 
 import pytest
 import pytest_asyncio
 from ab_core.database.databases import Database
 from ab_core.database.databases.sqlalchemy import AsyncSession, Session
-from ab_core.database.session_context import db_session_async_cm, db_session_sync_cm
 from ab_core.dependency import Load
 
 
 @pytest.fixture
 def tmp_database_sync(tmp_path: Path) -> Generator[Database, None, None]:
+    """Yield a temporary SQLite database instance for testing."""
     tmp_db_path = tmp_path / "db.sqlite"
     tmp_db_url = f"sqlite:///{tmp_db_path.as_posix()}"
 
@@ -31,6 +33,7 @@ def tmp_database_sync(tmp_path: Path) -> Generator[Database, None, None]:
 
 @pytest_asyncio.fixture
 async def tmp_database_async(tmp_path: Path) -> AsyncGenerator[Database, None]:
+    """Yield a temporary SQLite database instance for testing."""
     tmp_db_path = tmp_path / "db.sqlite"
     tmp_db_url = f"sqlite+aiosqlite:///{tmp_db_path.as_posix()}"
 
@@ -49,7 +52,8 @@ async def tmp_database_async(tmp_path: Path) -> AsyncGenerator[Database, None]:
 
 @pytest.fixture
 def tmp_database_sync_session(tmp_database_sync: Database) -> Generator[Session, None, None]:
-    with db_session_sync_cm(tmp_database_sync) as session:
+    """Yield a synchronous database session for testing."""
+    with tmp_database_sync.sync_session() as session:
         yield session
 
 
@@ -57,5 +61,6 @@ def tmp_database_sync_session(tmp_database_sync: Database) -> Generator[Session,
 async def tmp_database_async_session(
     tmp_database_async: Database,
 ) -> AsyncGenerator[AsyncSession, None]:
-    async with db_session_async_cm(tmp_database_async) as session:
+    """Yield an asynchronous database session for testing."""
+    async with tmp_database_async.async_session() as session:
         yield session
